@@ -121,8 +121,8 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 .bento{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:var(--gap);}
 .h-intro{grid-column:1/8;grid-row:1/3;display:flex;flex-direction:column;justify-content:space-between;min-height:600px;padding:clamp(24px,3.4vw,48px);}
 .h-intro::after{content:"";position:absolute;inset:0;z-index:-1;background-image:radial-gradient(rgba(14,19,32,.09) 1px,transparent 1.2px);background-size:22px 22px;mask-image:radial-gradient(ellipse at 100% 0%,#000 0%,transparent 55%);-webkit-mask-image:radial-gradient(ellipse at 100% 0%,#000 0%,transparent 55%);}
-.status{display:inline-flex;align-items:center;gap:10px;height:36px;padding:0 14px 0 12px;border-radius:999px;background:var(--bg);font-size:14px;font-weight:550;color:var(--ink-2);width:max-content;max-width:100%;}
-.status i{width:8px;height:8px;border-radius:50%;background:var(--acc-2);box-shadow:0 0 0 4px rgba(52,211,153,.25);animation:pulse 2.4s infinite;}
+.status{display:inline-flex;align-items:center;gap:10px;min-height:36px;padding:8px 16px 8px 13px;line-height:1.3;border-radius:18px;background:var(--bg);font-size:14px;font-weight:550;color:var(--ink-2);width:max-content;max-width:100%;}
+.status i{flex-shrink:0;width:8px;height:8px;border-radius:50%;background:var(--acc-2);box-shadow:0 0 0 4px rgba(52,211,153,.25);animation:pulse 2.4s infinite;}
 @keyframes pulse{0%,100%{box-shadow:0 0 0 4px rgba(52,211,153,.25);}50%{box-shadow:0 0 0 8px rgba(52,211,153,0);}}
 .h-intro h1{margin-top:28px;font-size:clamp(46px,6.2vw,92px);font-weight:600;letter-spacing:-0.055em;line-height:.93;max-width:11ch;}
 .h-sub{margin-top:24px;font-size:clamp(17px,1.35vw,19.5px);color:var(--ink-2);max-width:48ch;line-height:1.55;}
@@ -172,7 +172,7 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 .ring .trk{fill:none;stroke:rgba(14,19,32,.08);stroke-width:10;}
 .ring .bar{fill:none;stroke:var(--acc-2);stroke-width:10;stroke-linecap:round;stroke-dasharray:289;stroke-dashoffset:289;transition:stroke-dashoffset 1.6s var(--ease);}
 .ring b{position:absolute;inset:0;display:grid;place-items:center;font-size:26px;font-weight:650;letter-spacing:-0.04em;}
-.arrow-ico{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;background:rgba(14,19,32,.08);transition:transform .35s var(--ease),background .2s;}
+.arrow-ico{width:40px;height:40px;flex-shrink:0;border-radius:50%;display:grid !important;place-items:center;margin:0 !important;background:rgba(14,19,32,.08);transition:transform .35s var(--ease),background .2s;}
 .arrow-ico svg{width:16px;height:16px;}
 .tile.dark .arrow-ico{background:rgba(255,255,255,.1);}
 a.tile:hover .arrow-ico, button.tile:hover .arrow-ico{transform:rotate(-45deg);background:var(--acc);color:var(--ink);}
@@ -207,7 +207,7 @@ a.tile:hover .arrow-ico, button.tile:hover .arrow-ico{transform:rotate(-45deg);b
 .ov-photo .pf{position:relative;width:100%;max-width:300px;margin:0 auto;aspect-ratio:330/350;border-radius:24px;overflow:hidden;background:#fff;box-shadow:0 0 0 8px #fff,0 20px 40px -24px rgba(14,19,32,.5);}
 .ov-photo .pf img{width:100%;height:100%;object-fit:cover;}
 .ov-photo .cap b{font-size:22px;font-weight:600;letter-spacing:-0.03em;display:block;}
-.ov-photo .cap span{display:block;margin-top:2px;font-size:14.5px;color:rgba(14,19,32,.68);}
+.ov-photo .cap .sub{display:block;margin-top:2px;font-size:14.5px;color:rgba(14,19,32,.68);}
 .ov-photo .cap .pills{margin-top:14px;}
 .ov-photo .cap .pill{background:rgba(255,255,255,.7);color:var(--acc-ink);}
 .ov-bio{grid-column:5/13;}
@@ -237,7 +237,7 @@ a.tile:hover .arrow-ico, button.tile:hover .arrow-ico{transform:rotate(-45deg);b
 /* ---------- Research ---------- */
 .themes{display:flex;flex-wrap:wrap;gap:10px;}
 .theme{height:56px;padding:0 24px;display:inline-flex;align-items:center;border-radius:999px;background:var(--tile);border:1px solid var(--line);font-size:clamp(16px,1.5vw,19px);font-weight:550;letter-spacing:-0.02em;transition:background .25s,color .25s,border-color .25s;}
-.theme:hover{background:var(--ink);color:#fff;border-color:var(--ink);}
+@media (hover:hover){.theme:hover{background:var(--ink);color:#fff;border-color:var(--ink);}}
 .feat-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--gap);}
 .feat{min-height:250px;display:flex;flex-direction:column;justify-content:space-between;gap:30px;transition:transform .35s var(--ease);}
 .feat:hover{transform:translateY(-4px);}
@@ -477,12 +477,17 @@ a.tile:hover .arrow-ico, button.tile:hover .arrow-ico{transform:rotate(-45deg);b
 .prof .lg{width:44px;height:44px;border-radius:14px;background:var(--bg);display:grid;place-items:center;}
 .prof .lg svg{width:20px;height:20px;}
 .prof b{font-size:17px;font-weight:600;letter-spacing:-0.02em;}
-.prof span{display:block;font-size:13.5px;color:var(--ink-3);margin-top:2px;}
+.prof .sub{display:block;font-size:13.5px;color:var(--ink-3);margin-top:2px;}
+.prof .arrow-ico{width:36px;height:36px;}
 footer{padding:28px 0 calc(34px + env(safe-area-inset-bottom,0px));}
 .foot{display:flex;justify-content:space-between;align-items:center;gap:16px 28px;flex-wrap:wrap;font-size:14px;color:var(--ink-2);}
 .foot nav{display:flex;flex-wrap:wrap;gap:6px 22px;}
 .foot nav a:hover{color:var(--ink);}
 .foot-note{margin-top:10px;font-size:13px;color:var(--ink-3);}
+.to-top{position:fixed;z-index:120;left:calc(16px + env(safe-area-inset-left,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px));width:52px;height:52px;border-radius:50%;background:var(--ink);color:#fff;display:grid;place-items:center;box-shadow:0 12px 30px -10px rgba(14,19,32,.55);opacity:0;transform:translateY(16px) scale(.9);pointer-events:none;transition:opacity .3s,transform .35s var(--ease),background .2s;}
+.to-top.on{opacity:1;transform:none;pointer-events:auto;}
+.to-top:hover{background:#1E2638;}
+.to-top svg{width:20px;height:20px;}
 .toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translate(-50%,20px);opacity:0;background:var(--ink);color:#fff;padding:12px 18px;border-radius:999px;font-size:14.5px;font-weight:550;transition:opacity .3s,transform .3s var(--ease);z-index:200;pointer-events:none;}
 .toast.on{opacity:1;transform:translate(-50%,0);}
 
@@ -525,6 +530,21 @@ footer{padding:28px 0 calc(34px + env(safe-area-inset-bottom,0px));}
   .map-tile{grid-template-columns:1fr;}
   .map-side{border-right:0;border-bottom:1px solid rgba(255,255,255,.08);}
 }
+@media (max-width:760px){
+  html{scroll-padding-top:84px;}
+  .nav{flex-wrap:nowrap;border-radius:999px;gap:8px;padding:6px;}
+  .tabs{display:none;}
+  .brand{margin-right:auto;min-width:0;}
+  .brand-txt{min-width:0;}
+  .brand-txt b,.brand-txt span{overflow:hidden;text-overflow:ellipsis;}
+  .brand-txt span{display:block;}
+  .nav-cta{display:inline-flex !important;height:40px;padding:0 16px;}
+  .hero{padding-top:calc(84px + env(safe-area-inset-top,0px));}
+  .panel[hidden]{display:block;}
+  .panel.enter{animation:none;}
+  .panel + .panel{margin-top:clamp(72px,18vw,110px);padding-top:clamp(48px,12vw,72px);border-top:1px solid var(--line);}
+  .status{font-size:13.5px;}
+}
 @media (max-width:720px){
   body{font-size:16px;}
   :root{--gap:10px;}
@@ -549,6 +569,9 @@ footer{padding:28px 0 calc(34px + env(safe-area-inset-bottom,0px));}
   .pub .yr{grid-column:1/-1;padding:0;margin-bottom:-8px;}
   .pub-more .in{margin-left:12px;}
   .books{grid-template-columns:repeat(2,minmax(0,1fr));}
+  .cover{aspect-ratio:3/4.6;padding:16px 14px 14px 22px;gap:10px;}
+  .cover .ct{font-size:15px;line-height:1.15;}
+  .cover .cp{font-size:11.5px;}
   .eco-svg{display:none;}
   .eco-mobile{display:block;margin-top:14px;}
   .guest{grid-template-columns:1fr;}
@@ -659,7 +682,7 @@ footer{padding:28px 0 calc(34px + env(safe-area-inset-bottom,0px));}
   <div class="ov">
     <div class="tile mint ov-photo rv">
       <div class="pf"><img src="portrait.jpg" width="330" height="350" alt="Portrait of Dr. Kaliyan Mathiyazhagan"></div>
-      <div class="cap"><b>Dr. Kaliyan Mathiyazhagan</b><span>Thiagarajar School of Management, Madurai</span><div class="pills"><span class="pill">Top 2% Scientist, Stanford</span><span class="pill">Senior Member, IIIE</span></div></div>
+      <div class="cap"><b>Dr. Kaliyan Mathiyazhagan</b><span class="sub">Thiagarajar School of Management, Madurai</span><div class="pills"><span class="pill">Top 2% Scientist, Stanford</span><span class="pill">Senior Member, IIIE</span></div></div>
     </div>
     <div class="tile ov-bio rv" style="--d:60ms">
       <p class="lead">Dr. K. Mathiyazhagan studies how organisations make supply chains greener, leaner and more resilient — work that has placed him among Stanford's list of the world's top 2% of scientists.</p>
@@ -894,6 +917,7 @@ footer{padding:28px 0 calc(34px + env(safe-area-inset-bottom,0px));}
     <p class="foot-note">Content sourced from the 2026 academic CV. Figures are periodic snapshots, not live data. © Dr. Kaliyan Mathiyazhagan.</p>
   </div>
 </footer>
+<button class="to-top" id="toTop" aria-label="Back to top"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M6 11l6-6 6 6"/></svg></button>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 <script>
@@ -1094,8 +1118,17 @@ function moveIndicator(){
   ind.style.left = t.offsetLeft + 'px';
   ind.style.width = t.offsetWidth + 'px';
 }
+const mobileMQ = window.matchMedia('(max-width:760px)');
+const isMobile = () => mobileMQ.matches;
 function showTab(id, {scrollTo=null, update=true, scroll=true} = {}){
   if(!TABS.includes(id)) id = 'overview';
+  if(isMobile()){
+    currentTab = id;
+    observeReveals();
+    if(update) history.replaceState(null, '', '#' + (scrollTo || id));
+    if(scroll){ const target = document.getElementById(scrollTo || ('tab-' + id)); requestAnimationFrame(() => target && target.scrollIntoView({behavior: RM?'auto':'smooth', block:'start'})); }
+    return;
+  }
   const changed = id !== currentTab;
   currentTab = id;
   $$('.tab').forEach(t => t.setAttribute('aria-selected', String(t.dataset.tab === id)));
@@ -1480,7 +1513,7 @@ $('#bestPaperList').innerHTML = awardsBest.map((a,i) => {
 })();
 
 /* ============ CONTACT ============ */
-$('#profiles').innerHTML = profileLinks.map((p,i) => `<a class="tile prof rv" style="--d:${i*50}ms" href="${p.u}" target="_blank" rel="noopener"><div class="top"><span class="lg">${p.i}</span><span class="arrow-ico" style="width:34px;height:34px">${ICON.arrow}</span></div><div><b>${p.n}</b><span>${p.s}</span></div></a>`).join('');
+$('#profiles').innerHTML = profileLinks.map((p,i) => `<a class="tile prof rv" style="--d:${i*50}ms" href="${p.u}" target="_blank" rel="noopener"><div class="top"><span class="lg">${p.i}</span><span class="arrow-ico">${ICON.arrow}</span></div><div><b>${p.n}</b><span class="sub">${p.s}</span></div></a>`).join('');
 $('#copyEmail').addEventListener('click', async () => {
   try{ await navigator.clipboard.writeText('kmathiyazhagan@tsm.ac.in'); toast('Email address copied'); }
   catch(e){ toast('kmathiyazhagan@tsm.ac.in'); }
@@ -1494,6 +1527,13 @@ $('#copyEmail').addEventListener('click', async () => {
   else if(id === 'contact') setTimeout(()=>$('#contact').scrollIntoView(), 50);
   moveIndicator();
   observeReveals();
+  // leaving mobile: make sure only the current tab is visible and the indicator is right
+  mobileMQ.addEventListener ? mobileMQ.addEventListener('change', () => { if(!isMobile()){ const c=currentTab; currentTab=''; showTab(c,{update:false,scroll:false}); } else observeReveals(); }) : null;
+  // back-to-top button
+  const tt = $('#toTop');
+  const onScroll = () => tt.classList.toggle('on', window.scrollY > 700);
+  window.addEventListener('scroll', onScroll, {passive:true}); onScroll();
+  tt.addEventListener('click', () => { window.scrollTo({top:0, behavior: RM?'auto':'smooth'}); history.replaceState(null,'',location.pathname); });
   // arcs + eco lines animate when their tiles come into view (handled by .rv → .in)
 })();
 </script>

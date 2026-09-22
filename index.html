@@ -134,9 +134,12 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 .h-person span{display:block;font-size:13.5px;color:var(--ink-3);max-width:32ch;line-height:1.35;}
 
 .h-video{grid-column:8/13;grid-row:1/3;padding:0;background:var(--ink);border:0;min-height:600px;}
-.h-video .fallback{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 25%;}
+.h-video .fallback{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:radial-gradient(circle at 70% 20%,rgba(52,211,153,.28),transparent 55%),radial-gradient(circle at 20% 90%,rgba(125,211,252,.18),transparent 50%),var(--ink);transition:opacity .6s;}
+.h-video .fallback img{width:150px;height:150px;border-radius:50%;object-fit:cover;object-position:50% 20%;border:4px solid rgba(255,255,255,.9);}
+.h-video.has-media .fallback{opacity:0;}
 .hero-media-item{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 1s ease;}
-.hero-media-item.active{opacity:1;}
+.hero-media-item.prev{opacity:1;z-index:0;transition:none;}
+.hero-media-item.active{opacity:1;z-index:1;}
 .hero-media-item.kenburns{animation:kenburns 9s ease-in-out forwards;}
 @keyframes kenburns{from{transform:scale(1.08);}to{transform:scale(1);}}
 .h-video::after{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(14,19,32,.55) 0%,rgba(14,19,32,0) 22%,rgba(14,19,32,0) 55%,rgba(14,19,32,.85) 100%);pointer-events:none;}
@@ -200,12 +203,13 @@ a.tile:hover .arrow-ico, button.tile:hover .arrow-ico{transform:rotate(-45deg);b
 
 /* ---------- Overview ---------- */
 .ov{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:var(--gap);}
-.ov-photo{grid-column:1/5;grid-row:span 2;padding:0;min-height:520px;border:0;background:#DDE3DE;}
-.ov-photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 18%;}
-.ov-photo::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 55%,rgba(14,19,32,.75));}
-.ov-photo .cap{position:absolute;z-index:1;left:24px;right:24px;bottom:22px;color:#fff;}
+.ov-photo{grid-column:1/5;grid-row:span 2;display:flex;flex-direction:column;justify-content:space-between;gap:22px;padding:clamp(18px,2vw,26px);}
+.ov-photo .pf{position:relative;width:100%;max-width:300px;margin:0 auto;aspect-ratio:330/350;border-radius:24px;overflow:hidden;background:#fff;box-shadow:0 0 0 8px #fff,0 20px 40px -24px rgba(14,19,32,.5);}
+.ov-photo .pf img{width:100%;height:100%;object-fit:cover;}
 .ov-photo .cap b{font-size:22px;font-weight:600;letter-spacing:-0.03em;display:block;}
-.ov-photo .cap span{font-size:14px;color:rgba(255,255,255,.75);}
+.ov-photo .cap span{display:block;margin-top:2px;font-size:14.5px;color:rgba(14,19,32,.68);}
+.ov-photo .cap .pills{margin-top:14px;}
+.ov-photo .cap .pill{background:rgba(255,255,255,.7);color:var(--acc-ink);}
 .ov-bio{grid-column:5/13;}
 .lead{font-size:clamp(24px,2.5vw,36px);font-weight:500;letter-spacing:-0.035em;line-height:1.18;max-width:28ch;}
 .bio-cols{margin-top:26px;display:grid;grid-template-columns:1fr 1fr;gap:16px 30px;color:var(--ink-2);font-size:16px;}
@@ -218,14 +222,17 @@ a.tile:hover .arrow-ico, button.tile:hover .arrow-ico{transform:rotate(-45deg);b
 .ov-cv .v{font-size:24px;font-weight:600;letter-spacing:-0.035em;line-height:1.1;}
 .ov-cv .row{display:flex;justify-content:space-between;align-items:center;}
 .explore{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--gap);}
-.ex{display:flex;flex-direction:column;justify-content:space-between;gap:36px;text-align:left;min-height:210px;transition:transform .35s var(--ease),box-shadow .35s var(--ease);}
+.ex{display:flex;flex-direction:column;justify-content:flex-start;gap:40px;text-align:left;min-height:210px;color:var(--ink);transition:transform .35s var(--ease),box-shadow .35s var(--ease);}
 .ex:hover{transform:translateY(-4px);box-shadow:0 24px 50px -30px rgba(14,19,32,.45);}
 .ex .top{display:flex;justify-content:space-between;align-items:flex-start;}
 .ex .n{font-size:52px;font-weight:600;letter-spacing:-0.055em;line-height:.9;}
 .ex b{display:block;font-size:22px;font-weight:600;letter-spacing:-0.03em;}
-.ex span{display:block;margin-top:4px;font-size:15px;color:var(--ink-2);}
-.tile.dark.ex span{color:rgba(255,255,255,.62);}
-.tile.acc.ex span{color:rgba(14,19,32,.7);}
+.tile.dark.ex{color:#fff;}
+.ex .n{color:inherit;}
+.ex .d{display:block;margin-top:6px;font-size:15px;color:var(--ink-2);max-width:36ch;}
+.tile.dark.ex .d{color:rgba(255,255,255,.62);}
+.tile.acc.ex .d{color:rgba(14,19,32,.72);}
+.tile.mint.ex .d{color:rgba(14,19,32,.68);}
 
 /* ---------- Research ---------- */
 .themes{display:flex;flex-wrap:wrap;gap:10px;}
@@ -497,7 +504,8 @@ footer{padding:28px 0 calc(34px + env(safe-area-inset-bottom,0px));}
   .h-intro,.h-video{grid-column:1/-1;grid-row:auto;min-height:0;}
   .h-video{aspect-ratio:16/11;}
   .p-head{grid-template-columns:1fr;}
-  .ov-photo{grid-column:1/-1;grid-row:auto;min-height:0;aspect-ratio:4/3.4;}
+  .ov-photo{grid-column:1/-1;grid-row:auto;}
+  .ov-photo .pf{max-width:240px;}
   .ov-bio{grid-column:1/-1;}
   .ov-fact{grid-column:span 6;}
   .ov-cv,.ov-cv.w6{grid-column:1/-1;}
@@ -602,7 +610,7 @@ footer{padding:28px 0 calc(34px + env(safe-area-inset-bottom,0px));}
       </div>
 
       <div class="tile h-video rv" style="--d:80ms" id="heroMedia">
-        <img class="fallback" src="portrait.jpg" alt="">
+        <div class="fallback"><img src="portrait.jpg" alt=""></div>
         <div class="stories" id="heroStories"></div>
         <div class="v-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="6"/><path d="M8.5 13.7L7 22l5-3 5 3-1.5-8.3"/></svg><span>Top 2% Scientist<span class="vb-x">, Stanford World Rankings</span></span></div>
         <div class="v-cap">
@@ -649,9 +657,9 @@ footer{padding:28px 0 calc(34px + env(safe-area-inset-bottom,0px));}
     <div class="ph-r"><p>A decade of research at the intersection of operations and sustainability.</p></div>
   </div>
   <div class="ov">
-    <div class="tile ov-photo rv">
-      <img src="portrait.jpg" alt="Portrait of Dr. Kaliyan Mathiyazhagan">
-      <div class="cap"><b>Dr. Kaliyan Mathiyazhagan</b><span>Thiagarajar School of Management, Madurai</span></div>
+    <div class="tile mint ov-photo rv">
+      <div class="pf"><img src="portrait.jpg" width="330" height="350" alt="Portrait of Dr. Kaliyan Mathiyazhagan"></div>
+      <div class="cap"><b>Dr. Kaliyan Mathiyazhagan</b><span>Thiagarajar School of Management, Madurai</span><div class="pills"><span class="pill">Top 2% Scientist, Stanford</span><span class="pill">Senior Member, IIIE</span></div></div>
     </div>
     <div class="tile ov-bio rv" style="--d:60ms">
       <p class="lead">Dr. K. Mathiyazhagan studies how organisations make supply chains greener, leaner and more resilient — work that has placed him among Stanford's list of the world's top 2% of scientists.</p>
@@ -1155,7 +1163,7 @@ document.addEventListener('keydown', e => {
     const before = mount.querySelector('.stories');
     const els = media.map(m => {
       let el;
-      if(m.type === 'video'){ el = document.createElement('video'); el.src=m.src; el.muted=true; el.playsInline=true; el.setAttribute('playsinline',''); el.preload='auto'; }
+      if(m.type === 'video'){ el = document.createElement('video'); el.src=m.src; el.muted=true; el.playsInline=true; el.setAttribute('playsinline',''); el.preload='auto'; el.loop = media.length === 1; }
       else { el = document.createElement('img'); el.src=m.src; el.alt=''; }
       el.className = 'hero-media-item';
       mount.insertBefore(el, before);
@@ -1182,16 +1190,36 @@ document.addEventListener('keydown', e => {
       raf = requestAnimationFrame(loop);
     }
     function next(){ goTo((cur+1) % els.length); }
+    let prevTimer = null;
     function goTo(idx){
       cancelAnimationFrame(raf);
+      const prevIdx = cur, first = !mount.classList.contains('has-media');
       cur = idx;
+      clearTimeout(prevTimer);
+      els.forEach(el => el.classList.remove('prev'));
       els.forEach((el,i) => {
-        el.classList.toggle('active', i===idx);
-        el.classList.remove('kenburns');
-        if(el.tagName === 'VIDEO'){ if(i===idx){ el.currentTime = 0; if(!paused) el.play().catch(()=>{}); } else el.pause(); }
+        if(i === idx) return;
+        if(i === prevIdx && !first && prevIdx !== idx){ el.classList.add('prev'); }   // keep the outgoing clip visible underneath
+        else if(el.tagName === 'VIDEO') el.pause();
+        el.classList.remove('active','kenburns');
       });
+      const el = els[idx];
+      el.classList.remove('active');
+      const reveal = () => { el.classList.add('active'); mount.classList.add('has-media'); };
+      if(el.tagName === 'VIDEO'){
+        el.currentTime = 0;
+        if(!paused) el.play().catch(()=>{});
+        // only fade in once the first frame is actually ready, so nothing flashes through
+        if(el.readyState >= 2) requestAnimationFrame(reveal);
+        else { const on = () => { el.removeEventListener('loadeddata', on); reveal(); }; el.addEventListener('loadeddata', on); setTimeout(reveal, 900); }
+      } else {
+        requestAnimationFrame(reveal);
+        if(!RM){ void el.offsetWidth; el.classList.add('kenburns'); }
+      }
+      prevTimer = setTimeout(() => {
+        els.forEach((e,i) => { if(e.classList.contains('prev')){ e.classList.remove('prev'); if(e.tagName==='VIDEO') e.pause(); } });
+      }, 1200);
       bars.forEach((b,i) => { b.classList.toggle('done', i < idx); b.firstChild.style.width = i < idx ? '100%' : '0%'; });
-      if(els[idx].tagName === 'IMG' && !RM){ void els[idx].offsetWidth; els[idx].classList.add('kenburns'); }
       imgElapsed = 0; imgStart = performance.now();
       if(els.length > 1 && !paused) raf = requestAnimationFrame(loop);
     }
@@ -1246,7 +1274,7 @@ $('#exploreGrid').innerHTML = [
   {go:'global', n:talks.length, b:'Talks & workshops', s:'Keynotes, invited talks, workshops and FDPs', cls:'', to:'talks'},
 ].map((x,i) => `<button class="tile ${x.cls} ex rv" style="--d:${i*50}ms" ${x.to?`data-to="${x.to}"`:`data-go="${x.go}"`} data-tabfor="${x.go}">
   <div class="top"><span class="n num">${x.n}</span><span class="arrow-ico">${ICON.arrow}</span></div>
-  <div><b>${x.b}</b><span>${x.s}</span></div></button>`).join('');
+  <div><b>${x.b}</b><span class="d">${x.s}</span></div></button>`).join('');
 $$('#exploreGrid [data-to]').forEach(b => b.addEventListener('click', () => showTab(b.dataset.tabfor, {scrollTo:b.dataset.to})));
 
 /* ============ RESEARCH ============ */

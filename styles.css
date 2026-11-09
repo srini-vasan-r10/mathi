@@ -112,10 +112,10 @@ button {
 }
 
 .wrap {
-  width: 100%;
-  max-width: var(--max-w);
+  width: 80%;
+  max-width: 1280px;
   margin: 0 auto;
-  padding: 0 var(--pad);
+  padding: 0 clamp(10px, 2vw, 24px);
 }
 
 /* ==========================================================================
@@ -126,7 +126,7 @@ button {
   top: 12px;
   left: 50%;
   transform: translateX(-50%);
-  width: min(calc(100% - 24px), var(--max-w));
+  width: min(80%, 1280px);
   z-index: 100;
   display: flex;
   align-items: center;
@@ -1230,6 +1230,11 @@ button {
 @media (max-width: 768px) {
   :root {
     --pad: 16px;
+  }
+
+  .wrap {
+    width: 92%;
+    padding: 0 4px;
   }
 
   html {
